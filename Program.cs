@@ -17,7 +17,7 @@ namespace WzorzecFasada
     {
         public static void SendEmail(string to, string subject)
         {
-
+            Console.WriteLine(subject + to);
         }
     }
 
@@ -33,18 +33,18 @@ namespace WzorzecFasada
             return !users.Contains(email);
             //dopisz implementacje, która zwróci informacje o tym czy email jest dostępny
         }
-        
+
 
         public void AddUser(string email)
         {
             users.Add(email);
-            Console.WriteLine("Welcome to our service ");
+
             //dopisz implementacje, która doda użytkownika do listy
         }
         public void Delete(string email)
         {
             users.Remove(email);
-            Console.WriteLine("Goodbye "+email);
+
         }
         public int Countusers()
         {
@@ -75,12 +75,12 @@ namespace WzorzecFasada
             if (!userRepository.IsEmailFree(email))
             {
                 throw new ArgumentException("Zajęty email");
-            } 
+            }
 
             // TODO: dodaj sprawdzenie czy email jest wolny, jeśli nie to wyrzuć wyjątek, jeśli tak, kontynuuj wykonywanie funkcji
 
             userRepository.AddUser(email);
-            EmailNotification.SendEmail(email, "Welcome to our service");
+            EmailNotification.SendEmail(email, "Welcome to our service ");
         }
         public int GetCount()
         {
@@ -89,7 +89,8 @@ namespace WzorzecFasada
         public void DeleteUser(string email)
         {
             userRepository.Delete(email);
-        } 
+            Console.WriteLine("Goodbye " + email);
+        }
 
 
 
@@ -100,16 +101,16 @@ namespace WzorzecFasada
         static void Main(string[] args)
         {
             IUserService userService = new UserService();
-            Console.WriteLine("Aktualna liczba adresów: "+ userService.GetCount());
+            Console.WriteLine("Aktualna liczba adresów: " + userService.GetCount());
             // TODO: wyświetlić liczbę
             userService.CreateUser("someemail@gmail.com");
             Console.WriteLine("Aktualna liczba adresów: " + userService.GetCount());
             // TODO: wyświetlić liczbę
-            userService.DeleteUser("john.doe @gmail.com");
+            userService.DeleteUser("john.doe@gmail.com");
             // TODO: usunąć użytkownika
             Console.WriteLine("Aktualna liczba adresów: " + userService.GetCount());
             // TODO: wyświetlić liczbę
-            
+
         }
     }
 
